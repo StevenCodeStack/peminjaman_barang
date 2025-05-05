@@ -21,10 +21,18 @@
   --font-rubik: "Rubik Mono One", monospace;
 }
 
+html {
+  scrollbar-color: #8cf8b8 #353c3d;
+}
+
 body {
   @apply bg-white-background;
 }
 
 .paddingLayout {
   @apply py-5 px-10 md:px-20 xl:px-40;
+}
+
+.hideScrollbar {
+  scrollbar-width: none;
 }
