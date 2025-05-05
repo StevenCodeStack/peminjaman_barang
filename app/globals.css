@@ -13,9 +13,14 @@
 
 @theme {
   --color-primary: #8cf8b8;
+  --color-primary-hover: #59ff9d;
   --color-black: #353c3d;
   --color-white: #f5fdff;
   --color-white-background: #eaf1f3;
 
   --font-rubik: "Rubik Mono One", monospace;
+}
+
+body {
+  @apply bg-white-background;
 }
