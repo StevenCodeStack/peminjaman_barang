@@ -6,8 +6,8 @@ import { RiTeamFill } from "react-icons/ri";
 
 const DesktopMenu = () => {
   return (
-    <div className="flex-grow hidden md:flex items-center justify-between lg:justify-end gap-10 xl:gap-20">
-      <ul className="flex gap-15 xl:gap-20">
+    <div className="flex-grow hidden md:flex items-center justify-between lg:justify-end gap-12 xl:gap-25">
+      <ul className="flex gap-8">
         <li className="flex items-center gap-2">
           <IoMdHome className="text-primary text-[18px] lg:text-2xl" /> Home
         </li>
