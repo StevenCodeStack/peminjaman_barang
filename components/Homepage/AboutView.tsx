@@ -4,7 +4,10 @@ import AboutImg from "../../public/images/about_img.png";
 
 const AboutView = () => {
   return (
-    <div className="paddingLayout !py-20 flex flex-col lg:flex-row justify-center items-center md:gap-10 lg:gap-10 bg-black">
+    <div
+      id="about"
+      className="paddingLayout !py-20 flex flex-col lg:flex-row justify-center items-center md:gap-10 lg:gap-10 bg-black"
+    >
       <div className="relative flex-grow aspect-[4/3] h-80 lg:aspect-auto lg:h-[500px]">
         <Image src={AboutImg} fill alt="asd123" className="object-contain" />
       </div>

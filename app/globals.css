@@ -23,10 +23,12 @@
 
 html {
   scrollbar-color: #8cf8b8 #353c3d;
+  scroll-behavior: smooth;
 }
 
 body {
   @apply bg-white-background;
+  /* overflow-x: hidden; */
 }
 
 .paddingLayout {
@@ -35,4 +37,14 @@ body {
 
 .hideScrollbar {
   scrollbar-width: none;
+}
+
+.afterTimeline::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  left: 50%;
+  z-index: -1;
+  height: 95%;
+  @apply bg-black rounded;
 }

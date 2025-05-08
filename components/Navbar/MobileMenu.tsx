@@ -17,14 +17,14 @@ const MobileMenu = () => {
       >
         <ul className="relative flex flex-col gap-8 font-bold text-2xl py-50 px-15 sm:px-25">
           <div className="absolute top-5 px-5 right-0 flex justify-between w-full">
-            <div className="border-2 border-white px-4 py-1 font-mono text-white rounded-full text-xl">
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-              <SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              <div className="border-2 border-white px-4 py-1 font-mono text-white rounded-full text-xl">
                 <SignInButton />
-              </SignedOut>
-            </div>
+              </div>
+            </SignedOut>
             <MdClose className="text-3xl" onClick={() => setOpen(false)} />
           </div>
           <li className="flex items-center gap-2">

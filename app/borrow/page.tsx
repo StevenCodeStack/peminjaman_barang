@@ -1,5 +1,5 @@
-import GridItem from "@/components/BorrowPage/GridItem";
-import SearchBar from "@/components/BorrowPage/SearchBar";
+import GridItem from "@/app/borrow/components/GridItem";
+import SearchBar from "@/app/borrow/components/SearchBar";
 import React from "react";
 
 const page = () => {

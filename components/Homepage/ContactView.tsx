@@ -4,7 +4,10 @@ import ContactImg from "../../public/images/contact_img.png";
 
 const ContactView = () => {
   return (
-    <div className="py-20 px-10 md:px-30 xl:px-50 flex flex-col-reverse lg:flex-row justify-center items-center gap-5">
+    <div
+      id="contact"
+      className="py-20 px-10 md:px-30 xl:px-50 flex flex-col-reverse lg:flex-row justify-center items-center gap-5"
+    >
       <form
         action=""
         className="flex flex-col gap-4 w-full lg:max-w-[60%] mt-5 px-15 lg:px-0"
