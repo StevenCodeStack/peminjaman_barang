@@ -48,3 +48,15 @@ body {
   height: 95%;
   @apply bg-black rounded;
 }
+
+.active {
+  @apply bg-primary px-2 rounded font-semibold transition-all;
+}
+
+.inActive {
+  @apply px-2 transition-all;
+}
+
+.inActive:hover {
+  @apply bg-primary px-2 rounded transition-all;
+}

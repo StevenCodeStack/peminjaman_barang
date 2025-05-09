@@ -6,7 +6,7 @@ const HomeView = () => {
   return (
     <div
       id="home"
-      className="paddingLayout flex flex-col-reverse lg:flex-row justify-center items-center h-[80vh] md:gap-5 lg:gap-0"
+      className="paddingLayout !pt-20 flex flex-col-reverse lg:flex-row justify-center items-center h-[80vh] md:gap-5 lg:gap-0"
     >
       <div className="max-w-15/16 lg:max-w-[60%] xl:max-w-[50%] flex flex-col items-center lg:items-start text-center lg:text-start">
         <h1 className="font-rubik text-[40px] md:text-5xl leading-11 md:leading-12 text-black text-shadow-lg tracking-tighter">
