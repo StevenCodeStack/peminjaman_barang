@@ -1,3 +1,4 @@
+import Button from "@/components/ReuseableComponents/Button";
 import { Borrow } from "@/model/Models";
 import Image from "next/image";
 
@@ -36,13 +37,9 @@ const Item = ({
             <p className="text-yellow-400 font-semibold">{borrow.status}</p>
           </div>
           <div className="flex gap-5 mt-5 justify-between md:justify-start">
+            {/* Change this to reuseable button later */}
             <button className="bg-red-400 px-5 py-1 rounded">Cancel</button>
-            <button
-              onClick={() => onClick()}
-              className="bg-green-400 px-5 py-1 rounded"
-            >
-              Detail
-            </button>
+            <Button click={onClick} variant="primary" text="Detail" />
           </div>
         </div>
       </div>

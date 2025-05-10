@@ -1,6 +1,7 @@
 export enum UserRole {
-  STUDENT = "student",
-  ADMIN = "admin",
+  STUDENT,
+  ADMIN,
+  SUPERADMIN,
 }
 
 enum AdminType {

@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import Confirmation from "../../../../components/ReuseableComponents/Confirmation";
-import ItemComponent from "./ItemComponent";
 import { Item } from "@/model/Models";
+import ItemComponent from "./ItemComponent";
+import Popup from "@/components/ReuseableComponents/Popup";
 
 const GridItem = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -52,13 +53,14 @@ const GridItem = () => {
           />
         ))}
       </div>
-      <Confirmation
-        item={selectedItem}
-        open={showDialog}
-        message={`Are you sure you want to borrow ${selectedItem?.name}`}
-        onConfirm={() => console.log(selectedItem?.id)}
-        onClose={() => setShowDialog(false)}
-      />
+      <Popup open={showDialog}>
+        <Confirmation
+          item={selectedItem}
+          message={`Are you sure you want to borrow ${selectedItem?.name}`}
+          onConfirm={() => console.log(selectedItem?.id)}
+          onClose={() => setShowDialog(false)}
+        />
+      </Popup>
     </>
   );
 };
