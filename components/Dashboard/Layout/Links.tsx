@@ -1,21 +1,29 @@
 import Link from "next/link";
+import { useSelectedLayoutSegments } from "next/navigation";
 import React from "react";
+
 const studentLinks = [
   {
-    title: "My History",
+    title: "Borrow",
+    path: "borrow",
     links: [
       {
-        id: "my_borrowed_items",
-        name: "My Borrowed Items",
+        id: "request",
+        name: "Request",
       },
       {
-        id: "my_returned_items",
-        name: "My Returned Items",
+        id: "current",
+        name: "Current Items",
+      },
+      {
+        id: "history",
+        name: "History",
       },
     ],
   },
   {
     title: "Profile",
+    path: "profile",
     links: [
       {
         id: "profile_details",
@@ -28,6 +36,7 @@ const studentLinks = [
 const adminLinks = [
   {
     title: "Users",
+    path: "users",
     links: [
       {
         id: "students",
@@ -41,6 +50,7 @@ const adminLinks = [
   },
   {
     title: "History",
+    path: "history",
     links: [
       {
         id: "borrowed_history",
@@ -54,6 +64,7 @@ const adminLinks = [
   },
   {
     title: "Items",
+    path: "item",
     links: [
       {
         id: "all_items",
@@ -69,13 +80,16 @@ const adminLinks = [
 
 const role = "student";
 
-const Links = ({ section }: { section: string }) => {
+const Links = () => {
   const links =
     role === "student"
       ? studentLinks
       : role === "admin" || role === "superAdmin"
       ? adminLinks
       : [];
+  const segment = useSelectedLayoutSegments();
+  const currentSegment = segment[2] || null;
+  console.log(currentSegment);
   return (
     <div className="mt-10">
       {links.map((element) => (
@@ -85,8 +99,8 @@ const Links = ({ section }: { section: string }) => {
             {element?.links.map((link) => (
               <Link
                 key={link.id}
-                href={`/dashboard/${link.id}`}
-                className={section === link.id ? "active" : "inActive"}
+                href={`/dashboardTest/${role}/${element.path}/${link.id}`}
+                className={currentSegment === link.id ? "active" : "inActive"}
               >
                 {link.name}
               </Link>

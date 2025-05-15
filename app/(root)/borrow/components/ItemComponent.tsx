@@ -1,4 +1,5 @@
-import { Item } from "@/model/Models";
+import Button from "@/components/ReuseableComponents/Button";
+import { Item } from "@/model/models";
 import Image from "next/image";
 import React from "react";
 
@@ -21,12 +22,12 @@ const ItemComponent = ({ data, click }: { data: Item; click: () => void }) => {
           </div>
           <p className="font-light">{data.type} </p>
         </div>
-        <button
-          onClick={() => click()}
-          className="self-end my-3 px-5 py-2 bg-primary font-semibold rounded-full"
-        >
-          Borrow
-        </button>
+        <Button
+          className="w-fit self-end"
+          click={click}
+          text="Borrow"
+          variant="primary"
+        />
       </div>
     </div>
   );

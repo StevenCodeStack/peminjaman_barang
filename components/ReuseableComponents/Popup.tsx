@@ -11,7 +11,7 @@ const Popup = ({
     <div
       className={`${
         open ? "top-0" : "top-[-100%]"
-      } h-screen w-screen flex justify-center items-center absolute right-0 bg-slate-950/80 z-2 transition-all`}
+      } h-screen w-screen flex justify-center items-center fixed right-0 bg-slate-950/80 z-2 transition-all`}
     >
       {children}
     </div>

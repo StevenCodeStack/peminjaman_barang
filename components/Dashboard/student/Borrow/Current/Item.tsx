@@ -1,5 +1,5 @@
 import Button from "@/components/ReuseableComponents/Button";
-import { Borrow } from "@/model/Models";
+import { BorrowWithItem } from "@/types/types";
 import Image from "next/image";
 
 const Item = ({
@@ -8,11 +8,20 @@ const Item = ({
   onClick,
 }: {
   right: boolean;
-  borrow: Borrow | null;
+  borrow: BorrowWithItem | null;
   onClick: () => void;
 }) => {
   if (borrow === null) {
     return null;
+  }
+
+  let status = "";
+  if (borrow.returnDate) {
+    status = "Returned";
+  } else if (borrow.dueDate < new Date()) {
+    status = "Overdue";
+  } else if (borrow.active) {
+    status = "Active";
   }
   return (
     <div
@@ -34,7 +43,7 @@ const Item = ({
               <p className="text-sm">{borrow.item.category}</p>
             </header>
             <p className="font-light text-sm">{borrow.item.type}</p>
-            <p className="text-yellow-400 font-semibold">{borrow.status}</p>
+            <p className="text-yellow-400 font-semibold">{status}</p>
           </div>
           <div className="flex gap-5 mt-5 justify-between md:justify-start">
             {/* Change this to reuseable button later */}

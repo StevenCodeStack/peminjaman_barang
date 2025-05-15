@@ -1,16 +1,16 @@
 "use client";
 import ClerkUserButton from "@/components/Navbar/ClerkUserButton";
 import React, { useState } from "react";
-import Links from "./(LeftMenu)/Links";
+import Links from "./Links";
 import { BiMenu } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
 
-const LeftMenu = ({ section }: { section: string }) => {
+const LeftMenu = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
       <div
-        className="absolute top-5 left-5 text-2xl"
+        className="fixed top-5 left-5 text-2xl lg:hidden"
         onClick={() => setOpen(true)}
       >
         <BiMenu />
@@ -18,7 +18,7 @@ const LeftMenu = ({ section }: { section: string }) => {
       <div
         className={`${
           open ? "left-0" : "left-[-100%]"
-        } z-1 min-w-68 p-5 min-h-screen fixed top-0 lg:static bg-white transition-all`}
+        } z-1 min-w-68 p-5 fixed top-0 h-screen lg:sticky bg-white transition-all`}
       >
         <div className="relative">
           <button
@@ -38,7 +38,7 @@ const LeftMenu = ({ section }: { section: string }) => {
             <p>Steven</p>
           </div>
 
-          <Links section={section} />
+          <Links />
         </div>
       </div>
     </>

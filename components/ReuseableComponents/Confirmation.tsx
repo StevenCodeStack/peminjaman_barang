@@ -1,5 +1,5 @@
 "use client";
-import { Item } from "@/model/Models";
+import { Item } from "@/model/models";
 import React from "react";
 import WarningImg from "../../public/images/warning_sign.webp";
 import Image from "next/image";

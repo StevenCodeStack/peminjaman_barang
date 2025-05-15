@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Confirmation from "../../../../components/ReuseableComponents/Confirmation";
-import { Item } from "@/model/Models";
+import { Item } from "@/model/models";
 import ItemComponent from "./ItemComponent";
 import Popup from "@/components/ReuseableComponents/Popup";
 

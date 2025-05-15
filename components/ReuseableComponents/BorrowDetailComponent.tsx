@@ -1,25 +1,36 @@
-import { Borrow } from "@/model/Models";
 import Image from "next/image";
 import React from "react";
 import { IoClose } from "react-icons/io5";
 import NoImageFound from "../../public/images/no_image_found.jpg";
+import { BorrowWithItem } from "@/types/types";
 
 const BorrowDetailComponent = ({
   borrow,
   onClose,
 }: {
-  borrow: Borrow | null;
+  borrow: BorrowWithItem | null;
   onClose: () => void;
 }) => {
+  if (borrow === null) {
+    return;
+  }
+  let status = "";
+  if (borrow.returnDate) {
+    status = "Returned";
+  } else if (borrow.dueDate < new Date()) {
+    status = "Overdue";
+  } else if (borrow.active) {
+    status = "Active";
+  }
   return (
-    <div className="flex flex-col w-150 h-150 bg-slate-950 rounded-2xl relative">
+    <div className="flex flex-col w-100 sm:w-150 h-150 bg-slate-950 rounded-2xl relative">
       <IoClose
         onClick={() => onClose()}
         className="text-4xl text-red-500 absolute z-1 top-2 right-2"
       />
       <div className="relative h-full max-h-[50%] w-full">
         <Image
-          src={borrow?.item.picture || NoImageFound}
+          src={borrow?.item?.picture || NoImageFound}
           className="object-cover rounded-t-2xl bg-amber-400"
           alt=""
           fill
@@ -32,23 +43,23 @@ const BorrowDetailComponent = ({
             <tr>
               <td>Name</td>
               <td className="pr-1">:</td>
-              <td>{borrow?.item.name}</td>
+              <td>{borrow.item.name}</td>
             </tr>
             <tr>
               <td>Type</td>
               <td>:</td>
-              <td>{borrow?.item.type}</td>
+              <td>{borrow.item.type}</td>
             </tr>
             <tr>
               <td>Category</td>
               <td>:</td>
-              <td>{borrow?.item.category}</td>
+              <td>{borrow.item.category}</td>
             </tr>
             <tr>
               <td>Borrow Date</td>
               <td>:</td>
               <td>
-                {borrow?.borrowDate?.toLocaleDateString("en-US", {
+                {borrow.createdAt.toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
@@ -60,7 +71,7 @@ const BorrowDetailComponent = ({
               <td>Due Date</td>
               <td>:</td>
               <td>
-                {borrow?.dueDate?.toLocaleDateString("en-US", {
+                {borrow.dueDate.toLocaleDateString("en-US", {
                   weekday: "long",
                   year: "numeric",
                   month: "long",
@@ -71,12 +82,12 @@ const BorrowDetailComponent = ({
             <tr>
               <td>Borrow Code</td>
               <td>:</td>
-              <td>{borrow?.borrorCode || "Pending Confirmation"}</td>
+              <td>{borrow.borrowCode || "Pending Confirmation"}</td>
             </tr>
             <tr>
               <td>Status</td>
               <td>:</td>
-              <td>{borrow?.status}</td>
+              <td>{status}</td>
             </tr>
           </tbody>
         </table>
