@@ -4,8 +4,9 @@ import { MdOutlineSystemUpdateAlt } from "react-icons/md";
 import { RiTeamFill } from "react-icons/ri";
 import ClerkUserButton from "./ClerkUserButton";
 import Link from "next/link";
+import { Roles } from "@/types/globals";
 
-const DesktopMenu = () => {
+const DesktopMenu = ({ role }: { role: Roles | undefined }) => {
   return (
     <div className="flex-grow hidden md:flex items-center justify-between lg:justify-end gap-12 xl:gap-25">
       <ul className="flex gap-8">
@@ -15,10 +16,13 @@ const DesktopMenu = () => {
         <Link href={"/#about"} className="flex items-center gap-2">
           <RiTeamFill className="text-primary text-[18px] lg:text-2xl" /> About
         </Link>
-        <Link href={"/borrow"} className="flex items-center gap-2">
-          <MdOutlineSystemUpdateAlt className="text-primary text-[18px] lg:text-2xl" />
-          Borrow
-        </Link>
+        {role !== "admin" && (
+          <Link href={"/borrow"} className="flex items-center gap-2">
+            <MdOutlineSystemUpdateAlt className="text-primary text-[18px] lg:text-2xl" />
+            Borrow
+          </Link>
+        )}
+
         <Link
           href={"/#contact"}
           className="whitespace-nowrap hidden lg:block px-4 font-semibold w-fit py-1 rounded-2xl bg-primary text-black"

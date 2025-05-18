@@ -8,7 +8,7 @@ const AboutView = () => {
       id="about"
       className="paddingLayout !py-20 flex flex-col lg:flex-row justify-center items-center md:gap-10 lg:gap-10 bg-black"
     >
-      <div className="relative flex-grow aspect-[4/3] h-80 lg:aspect-auto lg:h-[500px]">
+      <div className="relative flex-grow max-w-[95%] aspect-[4/3] h-80 lg:aspect-auto lg:h-[500px]">
         <Image src={AboutImg} fill alt="asd123" className="object-contain" />
       </div>
       <div className="flex-grow max-h-1/2 lg:max-w-1/2 mt-5">
@@ -39,7 +39,9 @@ const AboutCard = ({ data, number }: { data: string; number: number }) => {
   return (
     <div className="flex items-center gap-2">
       <h1 className="text-7xl font-rubik">{number}</h1>
-      <p className="italic font-light text-2xl md:text-3xl">{data}</p>
+      <p className="italic font-light text-lg sm:text-2xl md:text-3xl">
+        {data}
+      </p>
     </div>
   );
 };

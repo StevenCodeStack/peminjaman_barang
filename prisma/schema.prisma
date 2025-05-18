@@ -53,8 +53,8 @@ model Student {
 
 model User {
   id String @id @default(cuid())
-  username String @db.VarChar(50)
-  fullName String @db.VarChar(100)
+  username String? @db.VarChar(50)
+  fullName String? @db.VarChar(100)
   email String @db.VarChar(255)
   picture String @db.VarChar(255)
   role Role
@@ -67,6 +67,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Item {

@@ -1,5 +1,5 @@
 import Button from "@/components/ReuseableComponents/Button";
-import { Item } from "@/model/models";
+import { Item } from "@prisma/client";
 import Image from "next/image";
 import React from "react";
 
@@ -12,6 +12,8 @@ const ItemComponent = ({ data, click }: { data: Item; click: () => void }) => {
           fill
           className="object-cover rounded-t-2xl"
           alt=""
+          priority={false}
+          quality={75}
         />
       </div>
       <div className="p-2 px-5 flex flex-col justify-between h-[40%]">

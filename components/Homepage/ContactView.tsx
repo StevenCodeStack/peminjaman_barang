@@ -10,7 +10,7 @@ const ContactView = () => {
     >
       <form
         action=""
-        className="flex flex-col gap-4 w-full lg:max-w-[60%] mt-5 px-15 lg:px-0"
+        className="flex flex-col gap-4 w-full lg:max-w-[60%] mt-5 px-10 lg:px-0"
       >
         <h1 className="text-center lg:text-start text-3xl font-extrabold text-black">
           Need Help? Get in Touch!

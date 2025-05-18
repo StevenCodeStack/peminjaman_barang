@@ -32,7 +32,7 @@ const BorrowReturnAccordion = ({
           <div className="p-3 bg-white text-sm space-y-2">
             <p>
               <span className="font-semibold">Borrowed </span>:{" "}
-              {data.borrow.createdAt?.toLocaleDateString("en-US", {
+              {data.borrow.createdAt.toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
