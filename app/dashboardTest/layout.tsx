@@ -1,6 +1,5 @@
 import React from "react";
 import LeftMenu from "../../components/Dashboard/Layout/LeftMenu";
-export const dynamic = "force-static";
 
 export default async function layout({
   children,

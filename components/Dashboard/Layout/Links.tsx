@@ -1,3 +1,5 @@
+"use client";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useSelectedLayoutSegments } from "next/navigation";
 import React from "react";
@@ -53,12 +55,12 @@ const adminLinks = [
     path: "history",
     links: [
       {
-        id: "borrowed_history",
-        name: "Borrowed History",
+        id: "borrow_request",
+        name: "Borrow Request",
       },
       {
-        id: "returned_history",
-        name: "Returned History",
+        id: "borrow",
+        name: "Borrow",
       },
     ],
   },
@@ -78,9 +80,9 @@ const adminLinks = [
   },
 ];
 
-const role = "student";
-
 const Links = () => {
+  const { user } = useUser();
+  const role = user?.publicMetadata.role;
   const links =
     role === "student"
       ? studentLinks
@@ -89,13 +91,12 @@ const Links = () => {
       : [];
   const segment = useSelectedLayoutSegments();
   const currentSegment = segment[2] || null;
-  console.log(currentSegment);
   return (
-    <div className="mt-10">
+    <div className="mt-10 flex flex-col gap-5">
       {links.map((element) => (
-        <div key={element.title} className="mt-5">
+        <div key={`section-${element.title}`}>
           <h1 className="text-lg font-semibold">{element.title}</h1>
-          <div className="flex flex-col gap-1 mt-3">
+          <div className="flex flex-col gap-2 mt-3">
             {element?.links.map((link) => (
               <Link
                 key={link.id}

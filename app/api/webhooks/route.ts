@@ -1,4 +1,4 @@
-import { createUser } from "@/lib/User";
+import { createUser, updateUser } from "@/lib/User";
 import { ClerkWebhookEvent } from "@/types/types";
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { NextRequest } from "next/server";
@@ -6,16 +6,14 @@ import { NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const evt = (await verifyWebhook(req)) as unknown as ClerkWebhookEvent;
-    console.log(evt);
     const eventType = evt.type;
 
     switch (eventType) {
       case "user.created":
-        console.log("createUser");
         createUser(evt.data);
         break;
       case "user.updated":
-        console.log("update");
+        updateUser(evt.data);
         break;
       case "user.deleted":
         console.log("deleted");

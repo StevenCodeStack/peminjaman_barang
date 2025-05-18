@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import HomeImg from "../../public/images/homepage_img.png";
+import Link from "next/link";
 
 const HomeView = () => {
   return (
@@ -18,12 +19,18 @@ const HomeView = () => {
           Why buy when you can borrow? Got the tech you need today!
         </p>
         <div className="flex gap-5 md:gap-10 my-5 text-lg md:text-xl">
-          <button className="px-3 md:px-7 py-3 border-2 border-black">
-            Get Started
-          </button>
-          <button className="px-3 md:px-7 py-3 border-2 border-black bg-primary hover:bg-primary-hover transition-all">
+          <Link
+            href={"/borrow"}
+            className="px-3 md:px-7 py-3 border-2 border-black"
+          >
+            Borrow Item
+          </Link>
+          <Link
+            href={"/#contact"}
+            className="px-3 md:px-7 py-3 border-2 border-black bg-primary hover:bg-primary-hover transition-all"
+          >
             Contact Us
-          </button>
+          </Link>
         </div>
       </div>
       <div className="relative flex-grow min-h-20 sm:min-h-50 w-full lg:w-fit lg:min-h-90">

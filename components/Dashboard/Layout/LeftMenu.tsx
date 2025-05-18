@@ -35,7 +35,6 @@ const LeftMenu = () => {
 
           <div className="flex gap-3 mt-5">
             <ClerkUserButton />
-            <p>Steven</p>
           </div>
 
           <Links />

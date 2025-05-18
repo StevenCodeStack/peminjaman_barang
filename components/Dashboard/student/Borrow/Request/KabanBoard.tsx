@@ -2,12 +2,15 @@ import React from "react";
 import prisma from "@/config/PrismaClient";
 import { BorrowRequestWithItem } from "@/types/types";
 import KabanCard from "./KabanCard";
+import { auth } from "@clerk/nextjs/server";
 
 const KabanBoard = async () => {
+  const { userId } = await auth();
+  if (!userId) return null;
   const requests: BorrowRequestWithItem[] = await prisma.borrowRequest.findMany(
     {
       where: {
-        studentId: "cmaow1i7h0000uly0t7cl8ofz",
+        studentId: userId,
       },
       include: {
         item: true,
@@ -23,7 +26,7 @@ const KabanBoard = async () => {
   return (
     <>
       {Object.entries(statusGroups).map(([status, group]) => (
-        <div key={status} className="border rounded-lg overflow-hidden">
+        <div key={status} className="border h-fit rounded-lg overflow-hidden">
           <div
             className={`p-3 border-b font-medium ${
               status === "PENDING"

@@ -1,12 +1,15 @@
 import GridItems from "@/components/Dashboard/student/Borrow/Current/GridItems";
 import prisma from "@/config/PrismaClient";
 import { BorrowWithItem } from "@/types/types";
+import { auth } from "@clerk/nextjs/server";
 
 const page = async () => {
+  const { userId } = await auth();
+  if (!userId) return null;
   const data: BorrowWithItem[] = await prisma.borrow.findMany({
     where: {
       active: true,
-      studentId: "cmaow1i7h0000uly0t7cl8ofz",
+      studentId: userId,
     },
     include: {
       item: true,

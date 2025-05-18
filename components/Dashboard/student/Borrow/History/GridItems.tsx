@@ -8,16 +8,20 @@ const GridItems = ({ data }: { data: BorrowReturnWithBorrow[] }) => {
 
   return (
     <div className="space-y-2">
-      {data.map((element) => (
-        <BorrowReturnAccordion
-          key={element.id}
-          click={() =>
-            setExpandedId(expandedId === element.id ? "" : element.id)
-          }
-          expandedId={expandedId}
-          data={element}
-        />
-      ))}
+      {data.length > 0 ? (
+        data.map((element) => (
+          <BorrowReturnAccordion
+            key={element.id}
+            click={() =>
+              setExpandedId(expandedId === element.id ? "" : element.id)
+            }
+            expandedId={expandedId}
+            data={element}
+          />
+        ))
+      ) : (
+        <h1>No Data...</h1>
+      )}
     </div>
   );
 };
