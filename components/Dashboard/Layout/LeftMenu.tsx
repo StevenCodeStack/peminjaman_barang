@@ -1,12 +1,15 @@
 "use client";
 import ClerkUserButton from "@/components/Navbar/ClerkUserButton";
 import React, { useState } from "react";
-import Links from "./Links";
 import { BiMenu } from "react-icons/bi";
 import { CgClose } from "react-icons/cg";
+import StudentLinks from "./StudentLinks";
+import AdminLinks from "./AdminLinks";
+import { Roles } from "@/types/globals";
 
-const LeftMenu = () => {
+const LeftMenu = ({ role }: { role: Roles }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <>
       <div
@@ -37,7 +40,9 @@ const LeftMenu = () => {
             <ClerkUserButton />
           </div>
 
-          <Links />
+          {/* <Links studentLinks={StudentLinks} adminLinks={AdminLinks} /> */}
+          {role === "student" && <StudentLinks />}
+          {role === "admin" && <AdminLinks />}
         </div>
       </div>
     </>

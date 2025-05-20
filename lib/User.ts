@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/config/PrismaClient";
 import { ClerkWebhookEvent } from "@/types/types";
-import { isNullOrEmpty } from "@/util/utils";
+import { isNullOrEmpty } from "@/lib/utils";
 import { clerkClient } from "@clerk/nextjs/server";
 import { UserFriendlyError } from "./error";
 

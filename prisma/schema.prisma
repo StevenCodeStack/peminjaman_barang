@@ -88,15 +88,15 @@ model BorrowRequest {
   id String @id @default(cuid())
   status BorrowRequestStatus @default(PENDING)
   adminNote String?
-  student User @relation(fields:[studentId], references: [id])
-  studentId String 
+  user User @relation(fields:[userId], references: [id])
+  userId String 
   item Item @relation(fields:[itemId], references: [id])
   itemId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  @@index([studentId])
+  @@index([userId])
   @@index([itemId])
   @@index([status, createdAt])
 }
@@ -105,8 +105,8 @@ model Borrow {
   id String @id @default(cuid())
   active Boolean @default(true)
   borrowCode String? @db.VarChar(6) @unique
-  student User @relation(fields: [studentId], references: [id])
-  studentId String
+  user User @relation(fields: [userId], references: [id])
+  userId String
   item Item @relation(fields: [itemId], references: [id])
   itemId String @unique
   dueDate DateTime
@@ -117,7 +117,7 @@ model Borrow {
   createdAt DateTime @default(now())
   deletedAt DateTime?
 
-  @@index([studentId]) 
+  @@index([userId]) 
   @@index([itemId])
   @@index([dueDate])
 }

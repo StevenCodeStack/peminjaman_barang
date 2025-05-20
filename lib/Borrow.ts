@@ -1,19 +1,9 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import { BorrowRequest, Item, Prisma } from "@prisma/client";
+import { BorrowRequest, Item } from "@prisma/client";
 import { generateCode } from "./tools";
 
 export type BorrowRequestStatus = "PENDING" | "APPROVED" | "REJECTED";
-
-export async function getBorrow(
-  where?: Prisma.BorrowWhereInput,
-  include?: Prisma.BorrowInclude
-) {
-  return await prisma.borrow.findMany({
-    where,
-    include,
-  });
-}
 
 export async function createBorrowRequest(item: Item, userId: string) {
   await prisma.$transaction(async (prisma) => {

@@ -1,7 +1,7 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
 const page = async () => {
-  return <div className="flex-grow pt-15 px-10 ">page</div>;
+  return redirect("/dashboardTest/admin/items/all_items");
 };
 
 export default page;

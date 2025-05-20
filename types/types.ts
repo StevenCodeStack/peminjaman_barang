@@ -12,16 +12,20 @@ export type UserStudent = User & { student: Student };
 
 export type UserAdmin = User & { admin: Admin };
 
-export type BorrowWithItem = Borrow & { item: Item; student?: Student };
+export type ItemWithBorrowAndUser = Item & {
+  borrow: Array<Borrow & { user: UserStudent }>;
+};
+
+export type BorrowWithItem = Borrow & { item: Item; user: UserStudent };
 
 export type BorrowRequestWithItem = BorrowRequest & {
   item: Item;
-  student?: Student;
+  user: UserStudent;
 };
 
 export type BorrowReturnWithBorrow = BorrowReturn & {
   borrow: BorrowWithItem;
-  student?: UserStudent;
+  user: UserStudent;
 };
 
 export type ClerkWebhookEvent = {
