@@ -5,7 +5,10 @@ import { UserAdmin } from "@/types/types";
 
 const page = async () => {
   const data = (await prisma.user.findMany({
-    where: { role: "ADMIN", admin: { isNot: null } },
+    where: {
+      OR: [{ role: "ADMIN" }, { role: "SUPERADMIN" }],
+      admin: { isNot: null },
+    },
     include: { admin: true },
   })) as UserAdmin[];
   return (

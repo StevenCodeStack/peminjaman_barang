@@ -8,8 +8,27 @@ const page = async () => {
     select: {
       name: true,
       category: true,
+      type: true,
       isAvailable: true,
       picture: true,
+      id: true,
+      borrowRequest: {
+        take: 1,
+        where: { status: "PENDING" },
+        select: {
+          createdAt: true,
+          user: {
+            select: {
+              fullName: true,
+              student: {
+                select: {
+                  nik: true,
+                },
+              },
+            },
+          },
+        },
+      },
       borrow: {
         where: {
           active: true,
@@ -19,6 +38,7 @@ const page = async () => {
           createdAt: "desc",
         },
         select: {
+          createdAt: true,
           user: {
             select: {
               fullName: true,
@@ -36,7 +56,7 @@ const page = async () => {
   return (
     <div>
       <h1 className="text-center font-bold py-5 text-2xl">All Items</h1>
-      {data.length < 0 ? (
+      {data.length >= 0 ? (
         <GridItems data={data} />
       ) : (
         <h1 className="text-center">No Data... </h1>

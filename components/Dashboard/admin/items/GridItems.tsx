@@ -9,9 +9,12 @@ import NoImageFound from "@/public/images/no_image_found.jpg";
 import { dateFormat } from "@/lib/utils";
 
 const GridItems = ({ data }: { data: ItemWithBorrowAndUser[] }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] =
     useState<ItemWithBorrowAndUser | null>(null);
+
+  console.log(data);
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 px-10">
@@ -64,27 +67,51 @@ const GridItems = ({ data }: { data: ItemWithBorrowAndUser[] }) => {
                   {selectedItem?.isAvailable ? "Available" : "Not Available"}
                 </td>
               </tr>
-              {selectedItem?.borrow && (
+              {selectedItem?.borrow[0] ? (
                 <>
                   <tr>
                     <td>Borrowed By</td>
                     <td>:</td>
                     <td>
-                      {selectedItem?.borrow[0].user.fullName ||
+                      {selectedItem.borrow[0].user.fullName ||
                         "No Name" +
                           " / " +
-                          (selectedItem?.borrow[0].user.student.nik ||
-                            "No NIK")}
+                          (selectedItem.borrow[0].user.student.nik || "No NIK")}
                     </td>
                   </tr>
                   <tr>
                     <td>Borrowed At</td>
                     <td>:</td>
                     <td>
-                      {dateFormat(selectedItem?.borrow[0].createdAt ?? null)}
+                      {dateFormat(selectedItem.borrow[0].createdAt ?? null)}
                     </td>
                   </tr>
                 </>
+              ) : (
+                selectedItem?.borrowRequest[0] && (
+                  <>
+                    <tr>
+                      <td>Requested By</td>
+                      <td>:</td>
+                      <td>
+                        {selectedItem.borrowRequest[0].user.fullName ||
+                          "No Name" +
+                            " / " +
+                            (selectedItem.borrowRequest[0].user.student.nik ||
+                              "No NIK")}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Requested At</td>
+                      <td>:</td>
+                      <td>
+                        {dateFormat(
+                          selectedItem.borrowRequest[0].createdAt ?? null
+                        )}
+                      </td>
+                    </tr>
+                  </>
+                )
               )}
             </tbody>
           </table>

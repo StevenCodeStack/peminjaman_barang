@@ -18,10 +18,13 @@ const Items = ({
       <div className="flex-grow flex flex-col justify-between px-5 py-2">
         <div className="">
           <header className="flex justify-between items-center">
-            <h1 className="text-lg font-semibold">Laptop - 01</h1>
-            <p className="text-sm text-slate-500">Laptop</p>
+            <h1 className="text-lg font-semibold">{data.name}</h1>
+            <p className="text-sm text-slate-500">{data.category}</p>
           </header>
-          <p className="text-slate-500">Laptop Lenovo Ideapad</p>
+          <p className="text-slate-500">{data.type}</p>
+          <p className={data.isAvailable ? "text-green-400" : "text-red-400"}>
+            {data.isAvailable ? "Available" : "Not Available"}
+          </p>
         </div>
         <Button
           click={click}

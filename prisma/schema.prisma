@@ -125,7 +125,7 @@ model Borrow {
 model BorrowReturn {
   id String @id @default(cuid())
   status BorrowReturnStatus
-  note String
+  note String?
 
   borrow Borrow @relation(fields: [borrowId], references: [id])
   borrowId String @unique

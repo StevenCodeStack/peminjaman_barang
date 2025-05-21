@@ -68,4 +68,18 @@ export const adminLinks = [
       },
     ],
   },
+  {
+    title: "Manage",
+    path: "manage",
+    links: [
+      {
+        id: "borrow_request",
+        name: "Borrow Request",
+      },
+      {
+        id: "borrow",
+        name: "Borrow",
+      },
+    ],
+  },
 ];

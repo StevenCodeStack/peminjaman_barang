@@ -1,22 +1,25 @@
 import GridItems from "@/components/Dashboard/student/Borrow/History/GridItems";
 import prisma from "@/config/PrismaClient";
 import { BorrowReturnWithBorrow } from "@/types/types";
+import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 const MyReturnedItems = async () => {
-  const data: BorrowReturnWithBorrow[] = await prisma.borrowReturn.findMany({
+  const { userId } = await auth();
+  if (!userId) return null;
+  const data = (await prisma.borrowReturn.findMany({
     where: {
-      borrow: { student: { id: "cmaow1i7h0000uly0t7cl8ofz" } },
+      borrow: { user: { id: userId } },
     },
     include: {
       borrow: {
         include: {
           item: true,
-          student: true,
+          user: true,
         },
       },
     },
-  });
+  })) as BorrowReturnWithBorrow[];
   return (
     <div>
       <h1 className="text-2xl font-bold mb-5">My Returned Items</h1>

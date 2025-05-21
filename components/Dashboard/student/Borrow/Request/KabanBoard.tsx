@@ -7,16 +7,14 @@ import { auth } from "@clerk/nextjs/server";
 const KabanBoard = async () => {
   const { userId } = await auth();
   if (!userId) return null;
-  const requests: BorrowRequestWithItem[] = await prisma.borrowRequest.findMany(
-    {
-      where: {
-        studentId: userId,
-      },
-      include: {
-        item: true,
-      },
-    }
-  );
+  const requests = (await prisma.borrowRequest.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      item: true,
+    },
+  })) as BorrowRequestWithItem[];
   const statusGroups = {
     PENDING: requests.filter((r) => r.status === "PENDING"),
     APPROVED: requests.filter((r) => r.status === "APPROVED"),

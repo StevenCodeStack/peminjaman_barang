@@ -34,6 +34,7 @@ const page = async () => {
     },
     orderBy: { createdAt: "desc" },
   })) as BorrowRequestWithItem[];
+
   return (
     <div className="px-5 md:px-20 lg:px-5 xl:px-20 flex flex-col">
       <h1 className="text-center font-bold text-2xl py-8">

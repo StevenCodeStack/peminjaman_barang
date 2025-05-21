@@ -43,13 +43,24 @@ const Item = ({
               <p className="text-sm">{borrow.item.category}</p>
             </header>
             <p className="font-light text-sm">{borrow.item.type}</p>
-            <p className="text-yellow-400 font-semibold">{status}</p>
+            <p
+              className={`${
+                status === "Active"
+                  ? "text-green-400"
+                  : status === "Overdue"
+                  ? "text-yellow-400"
+                  : "text-red-400"
+              } font-semibold`}
+            >
+              {status}
+            </p>
           </div>
-          <div className="flex gap-5 mt-5 justify-between md:justify-start">
-            {/* Change this to reuseable button later */}
-            <button className="bg-red-400 px-5 py-1 rounded">Cancel</button>
-            <Button click={onClick} variant="primary" text="Detail" />
-          </div>
+          <Button
+            click={onClick}
+            variant="primary"
+            text="Detail"
+            className="w-fit"
+          />
         </div>
       </div>
     </div>

@@ -12,8 +12,11 @@ export type UserStudent = User & { student: Student };
 
 export type UserAdmin = User & { admin: Admin };
 
+export type BorrowRequestStatus = "PENDING" | "APPROVED" | "REJECTED";
+
 export type ItemWithBorrowAndUser = Item & {
   borrow: Array<Borrow & { user: UserStudent }>;
+  borrowRequest: Array<BorrowRequest & { user: UserStudent }>;
 };
 
 export type BorrowWithItem = Borrow & { item: Item; user: UserStudent };

@@ -19,10 +19,10 @@ const page = async () => {
   if (!user) return null;
 
   const borrowRequestCount = await prisma.borrowRequest.count({
-    where: { studentId: userId },
+    where: { userId: userId },
   });
   const borrowCount = await prisma.borrow.count({
-    where: { studentId: userId },
+    where: { userId: userId },
   });
 
   return (
@@ -61,26 +61,34 @@ const page = async () => {
                 )}
               </div>
             </div>
-            <Link
-              href={"/complete_profile"}
-              className="w-fit px-5 py-1 bg-primary rounded font-semibold"
-            >
-              Complete Profile
-            </Link>
+            {!user.student && (
+              <Link
+                href={"/complete_profile"}
+                className="w-fit px-5 py-1 bg-primary rounded font-semibold"
+              >
+                Complete Profile
+              </Link>
+            )}
           </div>
           <div className="flex flex-col justify-between lg:max-h-1/2 bg-white rounded-2xl p-5 gap-5">
-            <div className="bg-primary rounded-xl flex-grow p-2 px-5">
+            <Link
+              href={"/dashboardTest/student/borrow/request"}
+              className="bg-primary rounded-xl flex-grow p-2 px-5"
+            >
               <div className="text-2xl font-bold flex gap-3 justify-center items-center">
                 <h1>Borrow Request</h1>
                 <p>{borrowRequestCount}</p>
               </div>
-            </div>
-            <div className="bg-blue-300 rounded-xl flex-grow p-2 px-5">
+            </Link>
+            <Link
+              href={"/dashboardTest/student/borrow/current"}
+              className="bg-blue-300 rounded-xl flex-grow p-2 px-5"
+            >
               <div className="text-2xl font-bold flex gap-3 justify-center items-center">
                 <h1>Borrow</h1>
                 <p>{borrowCount}</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

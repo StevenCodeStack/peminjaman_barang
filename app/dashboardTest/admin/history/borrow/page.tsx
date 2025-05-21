@@ -11,34 +11,21 @@ import {
 import { dateFormat } from "@/lib/utils";
 import prisma from "@/config/PrismaClient";
 import { BorrowWithItem } from "@/types/types";
+import { BorrowReturn } from "@prisma/client";
 
 const page = async () => {
-  const data = (await prisma.borrow.findMany({
-    where: {
-      active: false,
-    },
-    select: {
-      item: {
-        select: {
-          name: true,
-          category: true,
-        },
-      },
-      user: {
-        select: {
-          fullName: true,
-          email: true,
-          student: {
-            select: {
-              nik: true,
-            },
-          },
+  const data = (await prisma.borrowReturn.findMany({
+    where: { borrow: { user: { student: { isNot: null } } } },
+    include: {
+      borrow: {
+        include: {
+          user: { include: { student: true } },
+          item: true,
         },
       },
     },
-    orderBy: { createdAt: "desc" },
-  })) as BorrowWithItem[];
-  console.log(data);
+  })) as (BorrowReturn & { borrow: BorrowWithItem })[];
+
   return (
     <div className="px-5 md:px-20 lg:px-5 xl:px-20 flex flex-col">
       <h1 className="text-center font-bold text-2xl py-8">Borrow History</h1>
@@ -51,28 +38,30 @@ const page = async () => {
               <TableHead className="">Student</TableHead>
               <TableHead className="hidden lg:table-cell">Email</TableHead>
               <TableHead>Item Name</TableHead>
-              <TableHead className="hidden lg:table-cell">Category</TableHead>
               <TableHead className="text-right">Borrow At</TableHead>
               <TableHead className="text-right">Returned At</TableHead>
+              <TableHead className="hidden lg:table-cell">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.map((data) => (
               <TableRow key={data.id}>
-                <TableCell className="">{data.user.student.nik}</TableCell>
-                <TableCell className="">{data.user.fullName}</TableCell>
+                <TableCell className="">
+                  {data.borrow.user.student.nik}
+                </TableCell>
+                <TableCell className="">{data.borrow.user.fullName}</TableCell>
                 <TableCell className="hidden lg:table-cell">
-                  {data.user.email}
+                  {data.borrow.user.email}
                 </TableCell>
-                <TableCell>{data.item.name}</TableCell>
-                <TableCell className="text-right hidden lg:table-cell">
-                  {data.item.category}
+                <TableCell>{data.borrow.item.name}</TableCell>
+                <TableCell className="text-right">
+                  {dateFormat(data.borrow.createdAt)}
                 </TableCell>
                 <TableCell className="text-right">
-                  {dateFormat(data.createdAt)}
+                  {dateFormat(data.borrow.returnDate)}
                 </TableCell>
-                <TableCell className="text-right">
-                  {dateFormat(data.returnDate)}
+                <TableCell className="hidden lg:table-cell">
+                  {data.status}
                 </TableCell>
               </TableRow>
             ))}

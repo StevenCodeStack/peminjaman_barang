@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/ReuseableComponents/Button";
-import { handleBorrowRequest } from "@/lib/Borrow";
+import { handleBorrowRequest } from "@/lib/BorrowRequest";
 import { BorrowRequestWithItem } from "@/types/types";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -17,7 +17,7 @@ const KabanCard = ({
 
   async function handleCancel() {
     try {
-      await handleBorrowRequest(request, "REJECTED");
+      await handleBorrowRequest(request.id, "REJECTED");
       toast("Success");
       router.refresh();
     } catch (error) {
@@ -32,7 +32,7 @@ const KabanCard = ({
     <div key={request.id} className="border p-3 rounded bg-slate-50">
       <p className="font-medium">{request.item.name}</p>
       <p className="text-sm text-slate-600 mt-1">
-        Admin Note: {request.adminNote}
+        {request.adminNote && "Admin Note:" + request.adminNote}
       </p>
       <p className="text-xs text-gray-400 mt-3">
         {new Date(request.createdAt).toLocaleDateString()}
