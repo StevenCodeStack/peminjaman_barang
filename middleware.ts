@@ -2,7 +2,10 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 const isProtected = createRouteMatcher(["/dashboardTest(.*)"]);
-const isStudentRoute = createRouteMatcher(["/dashboardTest/student(.*)"]);
+const isStudentRoute = createRouteMatcher([
+  "/dashboardTest/student(.*)",
+  "/complete_profile",
+]);
 const isAdminRoute = createRouteMatcher(["/dashboardTest/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {

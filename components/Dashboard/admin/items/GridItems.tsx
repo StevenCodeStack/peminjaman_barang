@@ -12,12 +12,9 @@ const GridItems = ({ data }: { data: ItemWithBorrowAndUser[] }) => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] =
     useState<ItemWithBorrowAndUser | null>(null);
-
-  console.log(data);
-
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 px-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 px-10 mb-5">
         {data.map((element) => (
           <Item
             key={element.id}
@@ -30,7 +27,7 @@ const GridItems = ({ data }: { data: ItemWithBorrowAndUser[] }) => {
         ))}
       </div>
       <Popup open={open}>
-        <div className="bg-slate-900 rounded-2xl relative flex flex-col w-130 h-120 overflow-hidden">
+        <div className="bg-slate-900 rounded-2xl relative flex flex-col w-100 md:w-120 h-100 md:h-120 overflow-hidden">
           <IoMdClose
             onClick={() => setOpen(false)}
             className="absolute top-3 right-3 text-red-500 text-2xl font-bold z-1"

@@ -80,17 +80,15 @@ const BorrowDetailComponent = ({
               </td>
             </tr>
             <tr>
-              <td>Borrow Code</td>
-              <td>:</td>
-              <td>{borrow.borrowCode || "Pending Confirmation"}</td>
-            </tr>
-            <tr>
               <td>Status</td>
               <td>:</td>
               <td>{status}</td>
             </tr>
           </tbody>
         </table>
+        <p className="text-white text-2xl font-semibold mt-5">
+          Code: <span className="text-primary">{borrow.borrowCode}</span>
+        </p>
       </div>
     </div>
   );

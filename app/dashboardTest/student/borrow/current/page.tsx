@@ -23,6 +23,7 @@ const page = async () => {
         },
       },
     },
+    orderBy: { createdAt: "desc" },
   })) as BorrowWithItem[];
 
   return (

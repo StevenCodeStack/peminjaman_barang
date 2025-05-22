@@ -4,12 +4,14 @@ import Confirmation from "@/components/ReuseableComponents/Confirmation";
 import ItemComponent from "./ItemComponent";
 import Popup from "@/components/ReuseableComponents/Popup";
 import { Item } from "@prisma/client";
-import { createBorrowRequestAction } from "@/app/actions/Borrow";
+import { createBorrowRequestAction } from "@/app/actions/BorrowRequest";
 import { Bounce, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const GridItem = ({ items }: { items: Item[] }) => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const router = useRouter();
 
   async function handleBorrow(item: Item) {
     try {
@@ -22,6 +24,7 @@ const GridItem = ({ items }: { items: Item[] }) => {
         theme: "dark",
         transition: Bounce,
       });
+      router.refresh();
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message, {
@@ -47,7 +50,7 @@ const GridItem = ({ items }: { items: Item[] }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full mb-5">
         {items.map((item) => (
           <ItemComponent
             key={item.id}

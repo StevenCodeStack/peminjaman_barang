@@ -1,6 +1,7 @@
 import Button from "@/components/ReuseableComponents/Button";
 import { ItemWithBorrowAndUser } from "@/types/types";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const Items = ({
@@ -26,12 +27,20 @@ const Items = ({
             {data.isAvailable ? "Available" : "Not Available"}
           </p>
         </div>
-        <Button
-          click={click}
-          variant="primary"
-          text="Detail"
-          className="w-fit self-end"
-        />
+        <div className="self-end flex gap-5">
+          <Link
+            href={`/dashboardTest/admin/items/edit/${data.id}`}
+            className="px-6 py-1 bg-transparent border border-black rounded"
+          >
+            Edit
+          </Link>
+          <Button
+            click={click}
+            variant="primary"
+            text="Detail"
+            className="w-fit"
+          />
+        </div>
       </div>
     </div>
   );

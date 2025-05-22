@@ -70,7 +70,7 @@ const page = async () => {
                   <p
                     className={`${
                       data.status === "APPROVED" ? "bg-green-300" : "bg-red-300"
-                    } px-2 rounded h-fit font-semibold w-fit`}
+                    } px-2 rounded h-fit font-semibold w-fit py-1`}
                   >
                     {data.status}
                   </p>

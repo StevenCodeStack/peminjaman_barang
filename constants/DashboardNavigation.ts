@@ -66,6 +66,10 @@ export const adminLinks = [
         id: "all_items",
         name: "All Items",
       },
+      {
+        id: "add_item",
+        name: "Add Item`",
+      },
     ],
   },
   {

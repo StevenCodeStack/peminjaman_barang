@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Input from "@/components/complete_profile/Input";
+import Input from "@/components/ReuseableComponents/Input";
 import { updateUserName } from "@/lib/User";
 import { toast } from "react-toastify";
 import { useAuth } from "@clerk/nextjs";

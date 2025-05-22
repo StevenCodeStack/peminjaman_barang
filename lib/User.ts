@@ -54,6 +54,10 @@ export async function updateUserName(data: FormData, userId: string) {
     if (isNullOrEmpty(nik) || isNullOrEmpty(classUser) || isNullOrEmpty(major))
       throw new UserFriendlyError("Please fill all of the fields");
 
+    if (nik.length !== 4 || classUser.length > 30 || major.length > 50) {
+      throw new UserFriendlyError("Enter a valid value!");
+    }
+
     await prisma.student.create({
       data: {
         class: classUser,

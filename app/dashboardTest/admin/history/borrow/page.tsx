@@ -61,7 +61,17 @@ const page = async () => {
                   {dateFormat(data.borrow.returnDate)}
                 </TableCell>
                 <TableCell className="hidden lg:table-cell">
-                  {data.status}
+                  <p
+                    className={`${
+                      data.status === "GOOD"
+                        ? "bg-blue-300"
+                        : data.status === "DAMAGED"
+                        ? "bg-yellow-300"
+                        : "bg-red-300"
+                    } px-3 py-1 font-semibold rounded w-fit`}
+                  >
+                    {data.status}
+                  </p>
                 </TableCell>
               </TableRow>
             ))}

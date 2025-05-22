@@ -1,8 +1,17 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import { NotFound, UserFriendlyError } from "@/lib/error";
-import { handleBorrowRequest } from "@/lib/BorrowRequest";
-import { BorrowRequestStatus } from "@prisma/client";
+import {
+  BorrowLimitError,
+  ItemUnavailableError,
+  NotFound,
+  UnAuthorized,
+  UserFriendlyError,
+  UserNotSignedIn,
+} from "@/lib/error";
+import { createBorrowRequest, handleBorrowRequest } from "@/lib/BorrowRequest";
+import { BorrowRequestStatus, Item } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 export async function handleBorrowRequestAction(
   borrowRequestId: string,
@@ -20,4 +29,45 @@ export async function handleBorrowRequestAction(
     }
     throw new UserFriendlyError("Unexpected Error");
   }
+}
+
+export async function createBorrowRequestAction(item: Item) {
+  const { userId, sessionClaims } = await auth();
+  const role = sessionClaims?.metadata.role;
+
+  if (!userId) {
+    throw new UserNotSignedIn();
+  }
+
+  if (role !== "student") {
+    throw new UnAuthorized();
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { student: true },
+  });
+
+  if (!user) {
+    throw new UserFriendlyError("User Not Found");
+  }
+
+  if (user.student === null) {
+    return redirect("/complete_profile");
+  }
+  if (!item.isAvailable) {
+    throw new ItemUnavailableError();
+  }
+
+  const data = await prisma.borrow.count({
+    where: {
+      userId,
+      active: true,
+    },
+  });
+  if (data >= (process.env.MAXIMUM_BORROW as unknown as number)) {
+    throw new BorrowLimitError();
+  }
+
+  await createBorrowRequest(item, userId);
 }

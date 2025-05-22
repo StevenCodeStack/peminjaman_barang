@@ -12,10 +12,3 @@ export async function createBorrow(itemid: string, userId: string) {
     },
   });
 }
-
-export async function setBorrowInActive(itemId: string) {
-  await prisma.borrow.update({
-    where: { id: itemId },
-    data: { active: false },
-  });
-}
