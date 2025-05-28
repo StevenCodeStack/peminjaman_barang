@@ -20,6 +20,7 @@ const page = async () => {
     orderBy: { createdAt: "desc" },
     include: { user: { include: { student: true } }, item: true },
   })) as (Borrow & { user: UserStudent; item: Item })[];
+
   return (
     <div className="px-5 md:px-20 lg:px-5 xl:px-20 flex flex-col">
       <h1 className="text-2xl font-bold text-center py-8">

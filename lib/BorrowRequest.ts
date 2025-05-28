@@ -1,22 +1,31 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import { BorrowRequestStatus, Item } from "@prisma/client";
+import { BorrowRequestStatus, Item, Prisma } from "@prisma/client";
 import { createBorrow } from "./Borrow";
+import { UserFriendlyError } from "./error";
 
 export async function createBorrowRequest(item: Item, userId: string) {
-  await prisma.$transaction(async (prisma) => {
-    await prisma.borrowRequest.create({
-      data: {
-        item: { connect: { id: item.id } },
-        user: { connect: { id: userId } },
-      },
-    });
+  try {
+    await prisma.$transaction(async (prisma) => {
+      await prisma.borrowRequest.create({
+        data: {
+          item: { connect: { id: item.id } },
+          user: { connect: { id: userId } },
+        },
+      });
 
-    await prisma.item.update({
-      where: { id: item.id },
-      data: { isAvailable: false },
+      await prisma.item.update({
+        where: { id: item.id },
+        data: { isAvailable: false },
+      });
     });
-  });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      if (error.code === "P2002") {
+        throw new UserFriendlyError("You borrowed this item already");
+      }
+    }
+  }
 }
 
 export async function handleBorrowRequest(

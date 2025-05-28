@@ -31,103 +31,104 @@ enum Role {
 }
 
 model Admin {
-  id String @id @default(cuid())
-  type AdminType
-  user User @relation(fields:[userId], references: [id])
-  userId String @unique
+  id     String    @id @default(cuid())
+  type   AdminType
+  user   User      @relation(fields: [userId], references: [id])
+  userId String    @unique
 
   @@index([userId])
 }
 
 model Student {
-  id String @id @default(cuid())
-  nik String @unique @db.VarChar(4)
-  class String @db.VarChar(30)
-  major String @db.VarChar(50)
-  user User @relation(fields:[userId], references: [id])
-  userId String @unique
-  warning Int @default(0)
-  
+  id      String @id @default(cuid())
+  nik     String @unique @db.VarChar(4)
+  class   String @db.VarChar(30)
+  major   String @db.VarChar(50)
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @unique
+  warning Int    @default(0)
+
   @@index([userId])
 }
 
-
 model User {
-  id String @id
-  username String? @db.VarChar(50)
-  fullName String? @db.VarChar(100)
-  email String @db.VarChar(255)
-  picture String @db.VarChar(255)
-  role Role
-  student Student?
-  admin Admin?
+  id       String   @id
+  username String?  @db.VarChar(50)
+  fullName String?  @db.VarChar(100)
+  email    String   @db.VarChar(255)
+  picture  String   @db.VarChar(255)
+  role     Role
+  student  Student?
+  admin    Admin?
 
   borrowRequest BorrowRequest[]
-  borrow Borrow[]
+  borrow        Borrow[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 }
 
 model Item {
-  id String @id @default(cuid())
-  name String @db.VarChar(150)
-  type String @db.VarChar(150)
-  category String @db.VarChar(150)
+  id          String  @id @default(cuid())
+  name        String  @db.VarChar(150)
+  type        String  @db.VarChar(150)
+  category    String  @db.VarChar(150)
   isAvailable Boolean @default(false)
-  picture String @db.VarChar(255)
+  picture     String  @db.VarChar(255)
 
   borrowRequest BorrowRequest[]
-  borrow Borrow[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  borrow        Borrow[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 model BorrowRequest {
-  id String @id @default(cuid())
-  status BorrowRequestStatus @default(PENDING)
+  id        String              @id @default(cuid())
+  status    BorrowRequestStatus @default(PENDING)
   adminNote String?
-  user User @relation(fields:[userId], references: [id])
-  userId String 
-  item Item @relation(fields:[itemId], references: [id])
-  itemId String
+  user      User                @relation(fields: [userId], references: [id])
+  userId    String
+  item      Item                @relation(fields: [itemId], references: [id])
+  itemId    String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
+  @@unique([userId, status, itemId])
   @@index([userId])
   @@index([itemId])
   @@index([status, createdAt])
 }
 
 model Borrow {
-  id String @id @default(cuid())
-  active Boolean @default(true)
-  borrowCode String? @db.VarChar(6) @unique
-  user User @relation(fields: [userId], references: [id])
-  userId String
-  item Item @relation(fields: [itemId], references: [id])
-  itemId String @unique
-  dueDate DateTime
+  id         String    @id @default(cuid())
+  active     Boolean   @default(true)
+  borrowCode String?   @unique @db.VarChar(6)
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String
+  item       Item      @relation(fields: [itemId], references: [id])
+  itemId     String    @unique
+  dueDate    DateTime
   returnDate DateTime?
 
   borrowReturn BorrowReturn?
 
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
   deletedAt DateTime?
 
-  @@index([userId]) 
+  @@unique([userId, active, itemId])
+  @@index([userId])
   @@index([itemId])
   @@index([dueDate])
 }
 
 model BorrowReturn {
-  id String @id @default(cuid())
+  id     String             @id @default(cuid())
   status BorrowReturnStatus
-  note String?
+  note   String?
 
-  borrow Borrow @relation(fields: [borrowId], references: [id])
+  borrow   Borrow @relation(fields: [borrowId], references: [id])
   borrowId String @unique
 
   returnAt DateTime @default(now())

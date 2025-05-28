@@ -64,7 +64,6 @@ const GridItem = ({ items }: { items: Item[] }) => {
       </div>
       <Popup open={showDialog}>
         <Confirmation
-          item={selectedItem}
           message={`Are you sure you want to borrow ${selectedItem?.name}`}
           onConfirm={() => {
             if (selectedItem === null) return;

@@ -59,13 +59,20 @@ export async function createBorrowRequestAction(item: Item) {
     throw new ItemUnavailableError();
   }
 
-  const data = await prisma.borrow.count({
+  const borrowRequestData = await prisma.borrowRequest.count({
+    where: { userId, status: "PENDING" },
+  });
+
+  const borrowData = await prisma.borrow.count({
     where: {
       userId,
       active: true,
     },
   });
-  if (data >= (process.env.MAXIMUM_BORROW as unknown as number)) {
+  if (
+    borrowRequestData + borrowData >=
+    (process.env.MAXIMUM_BORROW as unknown as number)
+  ) {
     throw new BorrowLimitError();
   }
 

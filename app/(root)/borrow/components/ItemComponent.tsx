@@ -1,3 +1,4 @@
+"use client";
 import Button from "@/components/ReuseableComponents/Button";
 import { Item } from "@prisma/client";
 import Image from "next/image";

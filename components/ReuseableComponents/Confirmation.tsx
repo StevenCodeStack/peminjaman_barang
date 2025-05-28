@@ -1,16 +1,14 @@
 "use client";
-import { Item } from "@/model/models";
 import React from "react";
 import WarningImg from "../../public/images/warning_sign.webp";
 import Image from "next/image";
+import Button from "./Button";
 
 const Confirmation = ({
-  item,
   message,
   onConfirm,
   onClose,
 }: {
-  item: Item | null;
   message: string;
   onConfirm: () => void;
   onClose: () => void | null;
@@ -22,18 +20,20 @@ const Confirmation = ({
       </div>
       <p className="font-semibold text-xl text-white">{message}</p>
       <div className="text-white font-bold text-2xl flex gap-10">
-        <button
-          onClick={() => onConfirm()}
-          className="px-5 py-1 rounded bg-green-400"
-        >
-          Confirm
-        </button>
-        <button
-          onClick={() => onClose()}
-          className="px-5 py-1 rounded bg-red-400"
-        >
-          Cancel
-        </button>
+        <Button
+          click={() => {
+            onConfirm();
+            onClose();
+          }}
+          text="Confirm"
+          variant="primary"
+        />
+        <Button
+          className="!text-black"
+          click={onClose}
+          text="Cancel"
+          variant="danger"
+        />
       </div>
     </div>
   );

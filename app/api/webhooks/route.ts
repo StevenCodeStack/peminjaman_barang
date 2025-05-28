@@ -5,7 +5,7 @@ import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const evt = (await verifyWebhook(req)) as unknown as ClerkWebhookEvent;
+    const evt = (await verifyWebhook(req)) as ClerkWebhookEvent;
     const eventType = evt.type;
 
     switch (eventType) {
