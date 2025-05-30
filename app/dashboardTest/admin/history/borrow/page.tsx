@@ -24,6 +24,7 @@ const page = async () => {
         },
       },
     },
+    orderBy: { returnAt: "desc" },
   })) as (BorrowReturn & { borrow: BorrowWithItem })[];
 
   return (
@@ -63,11 +64,7 @@ const page = async () => {
                 <TableCell className="hidden lg:table-cell">
                   <p
                     className={`${
-                      data.status === "GOOD"
-                        ? "bg-blue-300"
-                        : data.status === "DAMAGED"
-                        ? "bg-yellow-300"
-                        : "bg-red-300"
+                      data.status === "GOOD" ? "bg-blue-300" : "bg-red-300"
                     } px-3 py-1 font-semibold rounded w-fit`}
                   >
                     {data.status}

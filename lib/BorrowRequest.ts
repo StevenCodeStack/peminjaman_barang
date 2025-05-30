@@ -1,8 +1,8 @@
 "use server";
 import prisma from "@/config/PrismaClient";
 import { BorrowRequestStatus, Item, Prisma } from "@prisma/client";
-import { createBorrow } from "./Borrow";
 import { UserFriendlyError } from "./error";
+import { createBorrowAction } from "@/app/actions/Borrow";
 
 export async function createBorrowRequest(item: Item, userId: string) {
   try {
@@ -32,19 +32,21 @@ export async function handleBorrowRequest(
   borrowRequestId: string,
   status: BorrowRequestStatus
 ) {
-  const data = await prisma.borrowRequest.update({
-    where: { id: borrowRequestId, status: "PENDING" },
-    data: { status },
-  });
-
-  if (status === "APPROVED") {
-    await createBorrow(data.itemId, data.userId);
-  } else if (status === "REJECTED") {
-    await prisma.item.update({
-      where: { id: data.itemId },
-      data: {
-        isAvailable: true,
-      },
+  await prisma.$transaction(async (prisma) => {
+    const data = await prisma.borrowRequest.update({
+      where: { id: borrowRequestId, status: "PENDING" },
+      data: { status },
     });
-  }
+
+    if (status === "APPROVED") {
+      await createBorrowAction(data.itemId, data.userId);
+    } else if (status === "REJECTED") {
+      await prisma.item.update({
+        where: { id: data.itemId },
+        data: {
+          isAvailable: true,
+        },
+      });
+    }
+  });
 }

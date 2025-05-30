@@ -11,6 +11,11 @@ const Items = ({
   data: ItemWithBorrowAndUser;
   click: () => void;
 }) => {
+  const status = data.isDamaged
+    ? "Damaged"
+    : data.isAvailable
+    ? "Available"
+    : "Not Available";
   return (
     <div className="bg-white h-100 rounded-2xl overflow-hidden flex flex-col">
       <div className="w-full h-full max-h-[60%] relative">
@@ -23,8 +28,14 @@ const Items = ({
             <p className="text-sm text-slate-500">{data.category}</p>
           </header>
           <p className="text-slate-500">{data.type}</p>
-          <p className={data.isAvailable ? "text-green-400" : "text-red-400"}>
-            {data.isAvailable ? "Available" : "Not Available"}
+          <p
+            className={
+              data.isAvailable && !data.isDamaged
+                ? "text-green-400"
+                : "text-red-400"
+            }
+          >
+            {status}
           </p>
         </div>
         <div className="self-end flex gap-5">

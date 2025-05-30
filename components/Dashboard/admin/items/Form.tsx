@@ -60,12 +60,19 @@ const Form = ({ data }: { data?: Item }) => {
             <label htmlFor="">Status</label>
             <select
               name="status"
-              defaultValue={data?.isAvailable ? "active" : "inactive"}
+              defaultValue={
+                data?.isDamaged
+                  ? "damaged"
+                  : data?.isAvailable
+                  ? "active"
+                  : "inactive"
+              }
               className="bg-slate-100 px-2"
             >
               <option className="hidden">Choose Status</option>
               <option value="active">Active</option>
               <option value="inactive">InActive</option>
+              {data && <option value="damaged">Damaged</option>}
             </select>
           </div>
           <button

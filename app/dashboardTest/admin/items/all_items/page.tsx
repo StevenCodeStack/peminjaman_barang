@@ -6,6 +6,7 @@ import React from "react";
 const page = async () => {
   const data = (await prisma.item.findMany({
     select: {
+      isDamaged: true,
       name: true,
       category: true,
       type: true,
@@ -52,6 +53,7 @@ const page = async () => {
         },
       },
     },
+    orderBy: { createdAt: "desc" },
   })) as ItemWithBorrowAndUser[];
   return (
     <div>

@@ -12,7 +12,7 @@ const Input = ({
   defaultValue?: string;
 }) => {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 text-black">
       <label htmlFor="" className="font-semibold">
         {text}
       </label>
@@ -21,7 +21,7 @@ const Input = ({
         defaultValue={defaultValue}
         name={name}
         placeholder={placeholder}
-        className="bg-slate-100 px-4 py-1"
+        className="bg-slate-100 px-4 py-1 rounded-2xl"
       />
     </div>
   );

@@ -28,14 +28,14 @@ export async function updateItem({
   name,
   type,
   category,
-  status = false,
+  status,
   pictureUrl,
 }: {
   id: string;
   name: string;
   type: string;
   category: string;
-  status: boolean;
+  status: string;
   pictureUrl: string;
 }) {
   await prisma.item.update({
@@ -44,7 +44,8 @@ export async function updateItem({
       name,
       type,
       category,
-      isAvailable: status,
+      isAvailable: status === "active",
+      isDamaged: status === "damaged",
       picture: pictureUrl,
     },
   });

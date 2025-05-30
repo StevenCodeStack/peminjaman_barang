@@ -13,7 +13,7 @@ export async function createUser(data: ClerkWebhookEvent["data"]) {
       data: {
         id: data.id,
         email: data.email_addresses[0].email_address,
-        fullName: firstName + lastName,
+        fullName: firstName + " " + lastName,
         username: data.username,
         picture: data.image_url,
         role: "STUDENT",
@@ -32,10 +32,12 @@ export async function createUser(data: ClerkWebhookEvent["data"]) {
 
 export async function updateUser(data: ClerkWebhookEvent["data"]) {
   try {
+    const firstName = data.first_name || "";
+    const lastName = data.last_name || "";
     await prisma.user.update({
       where: { id: data.id },
       data: {
-        fullName: data.first_name + " " + data.last_name,
+        fullName: firstName + " " + lastName,
         picture: data.image_url,
         username: data.username,
       },

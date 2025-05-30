@@ -43,7 +43,7 @@ export async function updateItemAction(
   const name = data.get("name") as string;
   const type = data.get("type") as string;
   const category = data.get("category") as string;
-  const status = (data.get("status") as string) === "active";
+  const status = data.get("status") as string;
 
   if (!id) {
     throw new UserFriendlyError("Failed to update, id is not defined");

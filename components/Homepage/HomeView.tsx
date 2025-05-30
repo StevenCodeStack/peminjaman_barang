@@ -15,7 +15,7 @@ const HomeView = () => {
           SHARE
           <span className="text-primary-hover">IT</span>
         </h1>
-        <p className="text-black font-semibold text-lg w-7/12">
+        <p className="text-black font-semibold text-lg sm:w-7/12">
           Why buy when you can borrow? Got the tech you need today!
         </p>
         <div className="flex gap-5 md:gap-10 my-5 text-lg md:text-xl">

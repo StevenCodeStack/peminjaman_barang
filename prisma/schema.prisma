@@ -16,7 +16,6 @@ enum BorrowRequestStatus {
 enum BorrowReturnStatus {
   GOOD
   DAMAGED
-  LOST
 }
 
 enum AdminType {
@@ -55,7 +54,7 @@ model User {
   id       String   @id
   username String?  @db.VarChar(50)
   fullName String?  @db.VarChar(100)
-  email    String   @db.VarChar(255)
+  email    String   @unique @db.VarChar(255)
   picture  String   @db.VarChar(255)
   role     Role
   student  Student?
@@ -75,6 +74,7 @@ model Item {
   type        String  @db.VarChar(150)
   category    String  @db.VarChar(150)
   isAvailable Boolean @default(false)
+  isDamaged   Boolean @default(false)
   picture     String  @db.VarChar(255)
 
   borrowRequest BorrowRequest[]
@@ -95,7 +95,6 @@ model BorrowRequest {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([userId, status, itemId])
   @@index([userId])
   @@index([itemId])
   @@index([status, createdAt])
@@ -108,7 +107,7 @@ model Borrow {
   user       User      @relation(fields: [userId], references: [id])
   userId     String
   item       Item      @relation(fields: [itemId], references: [id])
-  itemId     String    @unique
+  itemId     String
   dueDate    DateTime
   returnDate DateTime?
 
@@ -117,7 +116,6 @@ model Borrow {
   createdAt DateTime  @default(now())
   deletedAt DateTime?
 
-  @@unique([userId, active, itemId])
   @@index([userId])
   @@index([itemId])
   @@index([dueDate])
