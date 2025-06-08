@@ -6,7 +6,7 @@ const ContactView = () => {
   return (
     <div
       id="contact"
-      className="py-20 px-10 md:px-30 xl:px-50 flex flex-col-reverse lg:flex-row justify-center items-center gap-5"
+      className="py-20 px-5 md:px-30 xl:px-50 flex flex-col-reverse lg:flex-row justify-center items-center gap-5"
     >
       <form
         action=""

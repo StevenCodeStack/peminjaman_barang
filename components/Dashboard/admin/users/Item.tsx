@@ -8,7 +8,7 @@ const Item = ({ user, click }: { user: User; click: () => void }) => {
       onClick={click}
       className="flex flex-col justify-center items-center gap-3"
     >
-      <div className="w-50 h-50 relative">
+      <div className="w-40 md:w-50 h-40 md:h-50 relative">
         <Image
           src={user.picture}
           fill

@@ -14,7 +14,7 @@ const UserDetail = ({
   if (user == null) return null;
 
   return (
-    <div className="p-5 rounded bg-slate-900 relative w-130 h-140 flex flex-col">
+    <div className="p-5 rounded bg-slate-900 relative w-100 md:w-130 h-120 md:h-140 flex flex-col">
       <IoMdClose
         onClick={close}
         className="absolute top-5 right-5 text-red-500 text-3xl"
@@ -54,7 +54,7 @@ const UserDetail = ({
           {isStudent(user) && (
             <>
               <tr>
-                <td>NIK</td>
+                <td>NIS</td>
                 <td className="px-1">:</td>
                 <td>{(user as UserStudent).student.nik}</td>
               </tr>
@@ -77,7 +77,7 @@ const UserDetail = ({
           )}
 
           <tr>
-            <td>Created At</td>
+            <td>Joined At</td>
             <td className="px-1">:</td>
             <td>{dateFormat(user.createdAt)}</td>
           </tr>

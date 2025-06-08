@@ -15,12 +15,12 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={handleSearch}
-      className="flex justify-end w-full gap-5 mb-5"
+      className="flex justify-end w-full gap-2 md:gap-5 mb-5"
     >
       <input
         type="text"
         name="search"
-        className="px-3 py-1 bg-white rounded-full shadow shadow-slate-500 w-80 lg:w-100"
+        className="px-3 py-1 bg-white rounded-full shadow shadow-slate-500 flex-grow max-w-80 lg:max-w-100"
       />
       <button className="bg-white px-3 py-1 text-primary-hover shadow shadow-slate-500 rounded-full font-black ">
         Search

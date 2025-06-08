@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import { IoMdMenu, IoMdHome } from "react-icons/io";
+import { IoMdMenu, IoMdHome, IoMdClose } from "react-icons/io";
 import { MdOutlineSystemUpdateAlt } from "react-icons/md";
 import { RiTeamFill } from "react-icons/ri";
 import ClerkUserButton from "./ClerkUserButton";
@@ -20,6 +20,10 @@ const MobileMenu = ({ role }: { role: Roles | undefined }) => {
           open ? "right-0" : "right-[-100%]"
         } absolute h-screen w-[60vw] bg-black top-0 transition-all`}
       >
+        <IoMdClose
+          className="absolute top-5 right-5 text-4xl text-white font-bold z-10"
+          onClick={handleClose}
+        />
         <ul className="relative flex flex-col gap-8 font-bold text-2xl py-50 px-15 sm:px-25">
           <ClerkUserButton />
           <Link

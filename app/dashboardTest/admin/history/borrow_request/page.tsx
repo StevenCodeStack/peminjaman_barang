@@ -40,7 +40,7 @@ const page = async () => {
       <h1 className="text-center font-bold text-2xl py-8">
         Borrow Request History
       </h1>
-      <div className="overflow-x-auto">
+      <div className="w-[90dvw] md:w-full overflow-x-auto">
         <Table>
           <TableCaption>A list of Borrow Request History</TableCaption>
           <TableHeader className="bg-slate-200 ">

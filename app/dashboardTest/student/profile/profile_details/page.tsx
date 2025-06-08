@@ -38,7 +38,7 @@ const page = async () => {
         </div>
         <div className="">
           <h1 className="font-bold text-2xl md:text-4xl">{user.fullName}</h1>
-          <p className="text-slate-600 mt-1">
+          <p className="text-slate-600 mt-1 text-center text-xl">
             {user.username || "No Username"}
           </p>
         </div>
@@ -52,7 +52,7 @@ const page = async () => {
             <div className="">
               <h1 className="text-2xl font-bold mb-2">Profile</h1>
               <div className="flex flex-col gap-1 text-lg">
-                <p>Email : {user.email}</p>
+                <p className="break-all">Email : {user.email}</p>
                 {user.student && (
                   <>
                     <p>Class : {user.student.class}</p>

@@ -23,7 +23,7 @@ const BorrowDetailComponent = ({
     status = "Active";
   }
   return (
-    <div className="flex flex-col w-100 sm:w-150 h-150 bg-slate-950 rounded-2xl relative">
+    <div className="flex flex-col w-100 sm:w-150 h-130 bg-slate-950 rounded-2xl relative">
       <IoClose
         onClick={() => onClose()}
         className="text-4xl text-red-500 absolute z-1 top-2 right-2"
@@ -37,7 +37,7 @@ const BorrowDetailComponent = ({
         />
       </div>
       <div className="p-5 w-full flex-grow">
-        <h1 className="font-bold text-lg sm:text-2xl text-white">Details</h1>
+        <h1 className="font-bold text-xl mb-1 text-white">Details</h1>
         <table className="text-white w-full text-sm sm:text-[17px]">
           <tbody>
             <tr>

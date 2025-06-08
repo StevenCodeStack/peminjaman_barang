@@ -25,7 +25,9 @@ const Item = ({
   }
   return (
     <div
-      className={`${right && "relative md:left-1/2"} w-full md:max-w-1/2 px-6`}
+      className={`${
+        right && "relative md:left-1/2"
+      } w-full md:max-w-1/2 md:px-6`}
     >
       <div className="bg-white p-3 px-5 rounded-2xl h-100 sm:h-120 flex flex-col">
         <div className="w-full max-h-[55%] sm:max-h-2/3 h-full relative">
@@ -36,7 +38,7 @@ const Item = ({
             alt=""
           />
         </div>
-        <div className="x-5 p-3 flex flex-col justify-between flex-grow">
+        <div className="p-3 flex flex-col justify-between flex-grow">
           <div className="">
             <header className="flex justify-between p">
               <h1 className="text-xl font-bold">{borrow.item.name}</h1>

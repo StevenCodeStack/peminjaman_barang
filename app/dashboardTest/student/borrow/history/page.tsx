@@ -11,6 +11,7 @@ const MyReturnedItems = async () => {
     where: {
       borrow: { user: { id: userId } },
     },
+    orderBy: { returnAt: "desc" },
     include: {
       borrow: {
         include: {

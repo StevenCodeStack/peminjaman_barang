@@ -14,11 +14,11 @@ const Confirmation = ({
   onClose: () => void | null;
 }) => {
   return (
-    <div className="bg-slate-950 p-10 px-15 rounded-2xl flex flex-col justify-center items-center gap-5">
+    <div className="bg-slate-950 p-10 px-15 w-90 md:w-100 h-100 rounded-2xl flex flex-col justify-center items-center gap-5">
       <div className="w-50 h-50 relative">
         <Image src={WarningImg} fill alt="" />
       </div>
-      <p className="font-semibold text-xl text-white">{message}</p>
+      <p className="font-semibold text-xl text-white text-center">{message}</p>
       <div className="text-white font-bold text-2xl flex gap-10">
         <Button
           click={() => {

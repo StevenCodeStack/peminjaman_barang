@@ -20,7 +20,14 @@ const BorrowReturnAccordion = ({
         onClick={click}
       >
         <h3 className="font-medium">{data.borrow.item.name}</h3>
-        <span>{data.returnAt.toLocaleDateString("en-US")}</span>
+        <span>
+          {data.returnAt.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </span>
       </div>
 
       <div
@@ -41,17 +48,26 @@ const BorrowReturnAccordion = ({
             </p>
             <p>
               <span className="font-semibold">Returned</span>:{" "}
-              {data.returnAt.toLocaleDateString("en-US")}
+              {data.returnAt.toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
             </p>
-            <p>
-              <span className="font-semibold">Condition </span>: {data.status}
+            <p className="font-semibold">
+              Condition :{" "}
+              <span
+                className={`text-bold ${
+                  data.status === "DAMAGED" ? "text-red-500" : "text-blue-500"
+                }`}
+              >
+                {data.status}
+              </span>
             </p>
             <p>
               <span className="font-semibold">Note </span>: {data.note}
             </p>
-            <button className="mt-2 text-blue-500 hover:text-blue-700 transition-colors">
-              Full report
-            </button>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { Item } from "@prisma/client";
 const page = async ({
   searchParams,
 }: {
-  searchParams: { search?: string };
+  searchParams: Promise<{ search?: string }>;
 }) => {
   const params = await searchParams;
   const search = params.search || "";

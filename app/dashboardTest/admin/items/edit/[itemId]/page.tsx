@@ -3,9 +3,9 @@ import prisma from "@/config/PrismaClient";
 import { Item } from "@prisma/client";
 import React from "react";
 
-const Page = async ({ params }: { params: { itemId: string } }) => {
+const Page = async ({ params }: { params: Promise<{ itemId: string }> }) => {
   const data = (await prisma.item.findUnique({
-    where: { id: params.itemId },
+    where: { id: (await params).itemId },
   })) as Item;
 
   return (
