@@ -1,6 +1,5 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import { UserFriendlyError } from "./error";
 
 export async function createItem({
   name,
@@ -57,14 +56,17 @@ export async function deleteItem(itemId: string) {
   const item = await prisma.item.findFirst({
     where: { id: itemId },
   });
-  if (!item) throw new UserFriendlyError("Item is not found!");
+  if (!item) return { success: false, message: "Item is not found!" };
 
   const isBorrowed = await prisma.borrow.findFirst({
     where: { active: true, itemId },
   });
-  if (isBorrowed) throw new UserFriendlyError("Item is borrowed currently!");
+  if (isBorrowed)
+    return { success: false, message: "Item is currently borrowed!" };
 
   await prisma.item.delete({
     where: { id: itemId },
   });
+
+  return { success: true };
 }

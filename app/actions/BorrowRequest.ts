@@ -1,17 +1,10 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import {
-  BorrowLimitError,
-  ItemUnavailableError,
-  NotFound,
-  UnAuthorized,
-  UserFriendlyError,
-  UserNotSignedIn,
-} from "@/lib/error";
 import { createBorrowRequest, handleBorrowRequest } from "@/lib/BorrowRequest";
 import { BorrowRequestStatus, Item } from "@prisma/client";
 import { redirect } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import { UserStudent } from "@/types/types";
 
 export async function handleBorrowRequestAction(
   borrowRequestId: string,
@@ -21,13 +14,15 @@ export async function handleBorrowRequestAction(
     const data = await prisma.borrowRequest.findFirst({
       where: { id: borrowRequestId, status: "PENDING" },
     });
-    if (!data) throw new NotFound();
+    if (!data) return { success: false, message: "Data is not found!" };
     await handleBorrowRequest(data.id, status);
-  } catch (error: unknown) {
+
+    return { success: true };
+  } catch (error) {
     if (error instanceof Error) {
-      throw new UserFriendlyError("Error : " + error.message);
+      return { success: false, message: error.message };
     }
-    throw new UserFriendlyError("Unexpected Error");
+    return { success: false, message: "Unexpected Error" };
   }
 }
 
@@ -36,45 +31,60 @@ export async function createBorrowRequestAction(item: Item) {
   const role = sessionClaims?.metadata.role;
 
   if (!userId) {
-    throw new UserNotSignedIn();
+    return { success: false, message: "Login First!" };
   }
 
   if (role !== "student") {
-    throw new UnAuthorized();
+    return { success: false, message: "UnAuthorized!" };
   }
 
-  const user = await prisma.user.findUnique({
+  const user = (await prisma.user.findUnique({
     where: { id: userId },
     include: { student: true },
-  });
+  })) as UserStudent;
 
   if (!user) {
-    throw new UserFriendlyError("User Not Found");
+    return { success: false, message: "User Not Found!" };
+  }
+
+  if (user.student?.warning >= 5) {
+    return {
+      success: false,
+      message:
+        "You have reached the maximum warning limit (5). Borrowing is temporarily disabled.",
+    };
   }
 
   if (user.student === null) {
     return redirect("/complete_profile");
   }
   if (!item.isAvailable) {
-    throw new ItemUnavailableError();
+    return { success: false, message: "Item is not available" };
   }
 
-  const borrowRequestData = await prisma.borrowRequest.count({
-    where: { userId, status: "PENDING" },
-  });
+  try {
+    const borrowRequestData = await prisma.borrowRequest.count({
+      where: { userId, status: "PENDING" },
+    });
 
-  const borrowData = await prisma.borrow.count({
-    where: {
-      userId,
-      active: true,
-    },
-  });
-  if (
-    borrowRequestData + borrowData >=
-    (process.env.MAXIMUM_BORROW as unknown as number)
-  ) {
-    throw new BorrowLimitError();
+    const borrowData = await prisma.borrow.count({
+      where: {
+        userId,
+        active: true,
+      },
+    });
+    if (
+      borrowRequestData + borrowData >=
+      (process.env.MAXIMUM_BORROW as unknown as number)
+    ) {
+      return { success: false, message: "Borrow Limit Exceeded!" };
+    }
+
+    await createBorrowRequest(item, userId);
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error)
+      return { success: false, message: error.message };
   }
-
-  await createBorrowRequest(item, userId);
+  return { success: false, message: "Unexpected Error!" };
 }

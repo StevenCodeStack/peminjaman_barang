@@ -15,14 +15,27 @@ const Form = ({ data }: { data?: Item }) => {
     e.preventDefault();
     try {
       if (!data) {
-        await createItemAction(new FormData(e.currentTarget), pictureUrl);
+        const result = await createItemAction(
+          new FormData(e.currentTarget),
+          pictureUrl
+        );
+        if (result.success) {
+          toast("Success");
+        } else {
+          toast.error(result.message);
+        }
       } else {
-        await updateItemAction(
+        const result = await updateItemAction(
           new FormData(e.currentTarget),
           pictureUrl || data.picture
         );
+        console.log(result);
+        if (result.success) {
+          toast("Success");
+        } else {
+          toast.error(result.message);
+        }
       }
-      toast("Success");
     } catch (error) {
       if (error instanceof Error) {
         toast("Error : " + error.message);

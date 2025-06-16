@@ -13,9 +13,13 @@ const ActionButtons = ({ borrowRequestId }: { borrowRequestId: string }) => {
   async function handleClick(status: BorrowRequestStatus) {
     setSubmitting(true);
     try {
-      await handleBorrowRequestAction(borrowRequestId, status);
-      toast("Success");
-      router.refresh();
+      const result = await handleBorrowRequestAction(borrowRequestId, status);
+      if (result.success) {
+        toast("Success");
+        router.refresh();
+      } else {
+        toast.error(result.message);
+      }
     } catch (error) {
       if (error instanceof Error) toast("Failed : " + error.message);
     } finally {

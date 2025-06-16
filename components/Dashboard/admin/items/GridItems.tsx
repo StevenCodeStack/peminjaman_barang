@@ -23,9 +23,16 @@ const GridItems = ({ data }: { data: ItemWithBorrowAndUser[] }) => {
     if (!selectedItem) return;
     setSubmitting(true);
     try {
-      await deleteItem(selectedItem.id);
+      const result = await deleteItem(selectedItem.id);
       setOpen(false);
-      router.refresh();
+      if (result.success) {
+        toast("Success");
+        setOpen(false);
+        router.refresh();
+      } else {
+        toast.error(result.message);
+        setOpen(false);
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);

@@ -68,7 +68,7 @@ export const adminLinks = [
       },
       {
         id: "add_item",
-        name: "Add Item`",
+        name: "Add Item",
       },
     ],
   },

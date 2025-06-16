@@ -15,16 +15,27 @@ const GridItem = ({ items }: { items: Item[] }) => {
 
   async function handleBorrow(item: Item) {
     try {
-      await createBorrowRequestAction(item);
-      toast.success(`Successfully borrowed ${item.name}!`, {
-        position: "bottom-right",
-        autoClose: 5000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
-        transition: Bounce,
-      });
-      router.refresh();
+      const result = await createBorrowRequestAction(item);
+      if (result.success) {
+        toast.success(`Successfully borrowed ${item.name}!`, {
+          position: "bottom-right",
+          autoClose: 5000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Bounce,
+        });
+        router.refresh();
+      } else {
+        toast.error(result.message, {
+          position: "bottom-right",
+          autoClose: 5000,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message, {

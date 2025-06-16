@@ -1,3 +1,4 @@
+import { isNullOrEmpty } from "@/lib/utils";
 import { BorrowReturnWithBorrow } from "@/types/types";
 import React from "react";
 
@@ -65,9 +66,11 @@ const BorrowReturnAccordion = ({
                 {data.status}
               </span>
             </p>
-            <p>
-              <span className="font-semibold">Note </span>: {data.note}
-            </p>
+            {!isNullOrEmpty(data.note) && (
+              <p>
+                <span className="font-semibold">Note </span>: {data.note}
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -17,9 +17,13 @@ const KabanCard = ({
 
   async function handleCancel() {
     try {
-      await handleBorrowRequest(request.id, "REJECTED");
-      toast("Success");
-      router.refresh();
+      const result = await handleBorrowRequest(request.id, "REJECTED");
+      if (result.success) {
+        toast("Success");
+        router.refresh();
+      } else {
+        toast.error("Unexpected Error!");
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);

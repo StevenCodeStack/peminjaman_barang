@@ -33,12 +33,18 @@ const TableData = ({
     if (!borrowId) return;
     try {
       setOpen(false);
+
       const form = new FormData(e.currentTarget);
       const status = form.get("status") as "GOOD" | "DAMAGED";
       const adminNote = form.get("adminNote") as string;
-      await createBorrowReturn(borrowId, status, adminNote);
-      toast("Success");
-      router.refresh();
+
+      const result = await createBorrowReturn(borrowId, status, adminNote);
+      if (result.success) {
+        toast("Success");
+        router.refresh();
+      } else {
+        toast.error(result.message);
+      }
     } catch (error) {
       if (error instanceof Error) toast("Failed : " + error.message);
     } finally {

@@ -27,12 +27,19 @@ const ClerkUserButton = () => {
         <Suspense fallback={<div>Loading...</div>}>
           <UserButton>
             <UserButton.MenuItems>
-              <UserButton.Link
+              <UserButton.Action
                 label="Dashboard"
                 labelIcon={<MdDashboard className="w-4 h-4" />}
-                href={`/dashboardTest${
-                  role === "student" ? "/student/borrow/current" : "/admin"
-                }`}
+                onClick={() =>
+                  window.open(
+                    `/dashboardTest${
+                      role === "student"
+                        ? "/student/borrow/current"
+                        : "/admin/items/all_items"
+                    }`,
+                    "_blank"
+                  )
+                }
               />
             </UserButton.MenuItems>
           </UserButton>

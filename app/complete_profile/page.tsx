@@ -14,12 +14,20 @@ const Page = () => {
     e.preventDefault();
     if (!userId) return null;
     try {
-      await updateUserName(new FormData(e.currentTarget), userId);
-      toast("Success!");
+      const result = await updateUserName(
+        new FormData(e.currentTarget),
+        userId
+      );
+      if (result.success) {
+        toast("Success!");
+      } else {
+        toast(result.message);
+      }
     } catch (error) {
       if (error instanceof Error) {
         toast(error.message);
       }
+      toast("Unexpected Error!");
     }
   }
   return (

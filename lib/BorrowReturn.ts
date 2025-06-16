@@ -1,6 +1,5 @@
 "use server";
 import prisma from "@/config/PrismaClient";
-import { NotFound } from "./error";
 import { BorrowReturnStatus } from "@prisma/client";
 
 export async function createBorrowReturn(
@@ -12,7 +11,7 @@ export async function createBorrowReturn(
     where: { id: borrowId, active: true },
     include: { user: { include: { student: true } }, item: true },
   });
-  if (!borrow) throw new NotFound();
+  if (!borrow) return { success: false, message: "Item is not found" };
 
   await prisma.$transaction(async (prisma) => {
     await prisma.borrowReturn.create({
@@ -56,4 +55,6 @@ export async function createBorrowReturn(
       },
     });
   });
+
+  return { success: true };
 }
